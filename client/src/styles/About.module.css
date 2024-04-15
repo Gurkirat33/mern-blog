@@ -1,0 +1,39 @@
+.aboutSection {
+  /* border: 1px red solid; */
+  padding: 4rem 10rem;
+}
+.aboutInfo {
+  line-height: 1.74;
+}
+.aboutHead {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+@media (max-width: 991px) {
+  .aboutSection {
+    padding: 2rem 5rem;
+  }
+  .aboutHead {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 591px) {
+  .aboutHead {
+    font-size: 1.4rem;
+  }
+  .aboutSection {
+    padding: var(--p-mobile);
+  }
+  .aboutInfo {
+    line-height: 1.5;
+  }
+}
+@media (max-width: 380px) {
+  .aboutHead {
+    font-size: 1.2rem;
+  }
+}

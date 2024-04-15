@@ -1,0 +1,48 @@
+.navbar {
+  display: flex;
+  padding: var(--p-full);
+  border-bottom: 2px var(--grey-light) solid;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  padding: 0.5rem;
+  background-image: linear-gradient(
+    to left,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+  border-radius: 0.4rem;
+  color: white;
+}
+.navLinks ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+.navLinks ul a {
+  color: black;
+  text-decoration: none;
+}
+.input {
+  border: 2px var(--grey-light) solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.4rem;
+  border-radius: 0.3rem;
+  background-color: rgb(249, 250, 251);
+}
+.input:focus-within {
+  border: 2px var(--primary-color) solid;
+}
+
+.input input {
+  padding: 0.6rem 0;
+  border: none;
+  outline: none;
+  background-color: rgb(249, 250, 251);
+}
+.hamburgur {
+  display: none;
+}

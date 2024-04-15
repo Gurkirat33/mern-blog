@@ -1,0 +1,146 @@
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+.content {
+  text-align: center;
+}
+.mainHead {
+  color: var(--primary-color);
+  font-size: var(--main-heading);
+}
+.secondaryHead {
+  color: var(--primary-heading-color);
+  font-size: var(--primary-heading);
+}
+.formLeft,
+.formRight {
+  padding: 2rem;
+}
+.formLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formRight img {
+  width: 28rem;
+  aspect-ratio: 1;
+}
+.formInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.formInput .row input {
+  padding: 0.4rem;
+  background-color: var(--grey-light);
+  border: none;
+}
+.formInput .row input:focus {
+  outline: 2px var(--secondary-color) solid;
+}
+.button {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.button button {
+  width: 100%;
+}
+.google {
+  color: black;
+  border: none;
+  background: none;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  background-color: var(--grey-light);
+  cursor: pointer;
+}
+.google:hover {
+  background-image: linear-gradient(
+    to left,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+  color: white;
+}
+.signin {
+  color: var(--primary-heading-color);
+}
+.signin a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+@media (max-width: 992px) {
+  .formRight img {
+    width: 21rem;
+  }
+  .formLeft {
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .mainHead {
+    font-size: 1.6rem;
+  }
+  .secondaryHead {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .formLeft {
+    padding: 0;
+  }
+  .formRight img {
+    width: 15rem;
+    aspect-ratio: 3/4;
+  }
+  .mainHead {
+    font-size: 1.4rem;
+  }
+  .secondaryHead {
+    font-size: 0.8rem;
+  }
+  .formInput .row input {
+    padding: 0.3rem;
+  }
+}
+@media (max-width: 592px) {
+  .formRight {
+    display: none;
+  }
+  .form {
+    background-image: linear-gradient(
+      to left,
+      rgb(165, 120, 128),
+      rgb(121, 121, 220)
+    );
+  }
+  .mainHead {
+    color: white;
+  }
+  .secondaryHead {
+    color: var(--primary-heading-color);
+  }
+  .form {
+    height: calc(100vh - 4rem);
+  }
+  .formLeft {
+    /* border: 1px red solid; */
+    width: 100%;
+  }
+}
+@media (max-width: 425px) {
+  .form {
+    padding: 1.4rem;
+  }
+}
