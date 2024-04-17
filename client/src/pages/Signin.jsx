@@ -3,11 +3,18 @@ import SignUpImg from "../assets/images/signup.png";
 import ButtonInvert from "../components/ButtonInvert";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInFailure,
+  signInSuccess,
+  signInstart,
+} from "../app/user/UserSlics.js";
+import { MdError } from "react-icons/md";
 
 const SignIn = () => {
   const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const handleFormValue = (e) => {
     setUserData({ ...userData, [e.target.id]: e.target.value.trim() });
@@ -16,11 +23,10 @@ const SignIn = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!userData.password || !userData.email) {
-      setLoading(false);
-      return toast.error("All fields are required!");
+      return dispatch(signInFailure("All fields are required!"));
     }
     try {
-      setLoading(true);
+      dispatch(signInstart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -28,21 +34,18 @@ const SignIn = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        return toast.error("Username/Email is invalid!");
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (err) {
-      console.log(err);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
   return (
     <div className={styles.form}>
-      <Toaster position="top-center" reverseOrder={false} />
       <div className={styles.formLeft}>
         <div className={styles.content}>
           <p className={styles.mainHead}>SignIn Now</p>
@@ -80,6 +83,12 @@ const SignIn = () => {
             </span>
           </p>
         </form>
+        {error && (
+          <p className={styles.error}>
+            {<MdError />}
+            {error}
+          </p>
+        )}
       </div>
       <div className={styles.formRight}>
         <img src={SignUpImg} alt="SignIn-image" />
