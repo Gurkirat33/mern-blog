@@ -10,6 +10,7 @@ import {
   signInstart,
 } from "../app/user/UserSlics.js";
 import { MdError } from "react-icons/md";
+import GoogleBtn from "../components/GoogleBtn.jsx";
 
 const SignIn = () => {
   const [userData, setUserData] = useState({});
@@ -74,7 +75,7 @@ const SignIn = () => {
           </div>
           <div className={styles.button}>
             <ButtonInvert>{loading ? "Loading..." : "Sign In"}</ButtonInvert>
-            <button className={styles.google}>Google</button>
+            <GoogleBtn />
           </div>
           <p className={styles.signin}>
             Dont Have an account?

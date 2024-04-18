@@ -56,23 +56,6 @@
 .button button {
   width: 100%;
 }
-.google {
-  color: black;
-  border: none;
-  background: none;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  background-color: var(--grey-light);
-  cursor: pointer;
-}
-.google:hover {
-  background-image: linear-gradient(
-    to left,
-    var(--secondary-color),
-    var(--primary-color)
-  );
-  color: white;
-}
 .signin {
   color: var(--primary-heading-color);
 }

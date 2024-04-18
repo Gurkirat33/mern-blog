@@ -4,6 +4,7 @@ import ButtonInvert from "../components/ButtonInvert";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import GoogleBtn from "../components/GoogleBtn";
 
 const Signup = () => {
   const [userData, setUserData] = useState({});
@@ -78,7 +79,7 @@ const Signup = () => {
           </div>
           <div className={styles.button}>
             <ButtonInvert>{loading ? "Loading..." : "Sign In"}</ButtonInvert>
-            <button className={styles.google}>Google</button>
+            <GoogleBtn />
           </div>
           <p className={styles.signin}>
             Have an account?
