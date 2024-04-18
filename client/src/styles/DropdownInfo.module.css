@@ -1,0 +1,38 @@
+.profilePic img {
+  width: 2.2rem;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 50%;
+}
+.profilePic {
+  position: relative;
+}
+.dropdownContent {
+  position: absolute;
+  right: 0rem;
+  background-color: white;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem;
+  gap: 0.4rem;
+  border: 2px var(--grey-light) solid;
+  border-radius: 1rem;
+}
+.userInfo {
+  font-size: 0.9rem;
+}
+.userName {
+  color: var(--primary-heading-color);
+}
+.dropdownContent a {
+  transition: all 0.2s ease;
+}
+.dropdownContent > * {
+  border-bottom: 1px var(--grey-light) solid;
+  padding: 0.3rem;
+}
+
+.dropdownContent a:hover {
+  background-color: var(--grey-light);
+}

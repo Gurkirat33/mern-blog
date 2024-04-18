@@ -3,12 +3,11 @@ import { NavLink } from "react-router-dom";
 import styles from "../styles/Header.module.css";
 import { IoIosSearch } from "react-icons/io";
 import Logo from "./Logo";
+import { useSelector } from "react-redux";
+import DropdownInfo from "./DropdownInfo";
 
 const Header = () => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const handleShowMenu = () => {
-    showMobileMenu((s) => !s);
-  };
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <nav className={styles.navbar}>
       <Logo />
@@ -30,7 +29,11 @@ const Header = () => {
             <NavLink to="/projects">Projects</NavLink>
           </li>
           <li className={styles.btnGradient}>
-            <NavLink to="/sign-in">Sign in</NavLink>
+            {currentUser ? (
+              <DropdownInfo user={currentUser} />
+            ) : (
+              <NavLink to="/sign-in">Sign in</NavLink>
+            )}
           </li>
         </ul>
       </div>
