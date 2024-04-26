@@ -10,7 +10,12 @@ import {
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} from "../app/user/UserSlics";
+import { useDispatch } from "react-redux";
 const ProfileDash = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
@@ -18,6 +23,10 @@ const ProfileDash = () => {
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [updateUserError, setUpdateUserError] = useState(null);
+  const dispatch = useDispatch();
 
   const filePickerRef = useRef();
   const handleImageInput = (e) => {
@@ -60,9 +69,47 @@ const ProfileDash = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageFileUrl(downloadURL);
           setImageFileUploading(false);
+          setFormData({ ...formData, profilePicture: downloadURL });
         });
       }
     );
+  };
+  const handleFormChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null);
+    if (Object.keys(formData).length === 0) {
+      setUpdateUserError("No changes made!");
+      return;
+    }
+    if (imageFileUploading) {
+      setUpdateUserError("Please wait for image to upload!");
+      return;
+    }
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setUpdateUserError(data.message);
+        dispatch(updateFailure(data.message));
+      } else {
+        dispatch(updateSuccess(data));
+        setUpdateUserSuccess("User's profile updated successfully");
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+      setUpdateUserError(error.message);
+    }
   };
   return (
     <div className={styles.profile}>
@@ -102,24 +149,35 @@ const ProfileDash = () => {
       {imageFileUploadError && (
         <div className="error">{imageFileUploadError}</div>
       )}
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Username"
           defaultValue={currentUser.username}
+          onChange={handleFormChange}
+          id="username"
         />
         <input
           type="text"
           placeholder="Email"
           defaultValue={currentUser.email}
+          onChange={handleFormChange}
+          id="email"
         />
-        <input type="text" placeholder="password" defaultValue="**********" />
+        <input
+          type="text"
+          placeholder="Password"
+          onChange={handleFormChange}
+          id="password"
+        />
         <button className={styles.updateBtn}>Update</button>
         <div className={styles.btnRow}>
           <p>Delete Account</p>
           <p>Sign out</p>
         </div>
       </form>
+      {updateUserSuccess && <div className="success">{updateUserSuccess}</div>}
+      {updateUserError && <div className="error">{updateUserError}</div>}
     </div>
   );
 };
