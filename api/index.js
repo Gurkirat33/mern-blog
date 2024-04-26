@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRouter = require("./routes/user.route");
 const authRouter = require("./routes/auth.route.js");
+const cookieParser = require("cookie-parser");
+
 dotenv.config();
 
 //Mongoose Connection
@@ -19,9 +21,9 @@ mongoose
 
 //Middlewares
 app.use(express.json());
-
+app.use(cookieParser());
 // Routes
-app.use("/api", userRouter);
+app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 
 app.listen(PORT, () => {
