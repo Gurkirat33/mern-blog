@@ -10,7 +10,7 @@ const Dashboard = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabUrl = urlParams.get("tab");
-    if (tabUrl) {
+    if (tabUrl !== null && tabUrl !== undefined) {
       setTab(tabUrl);
     }
   }, [location.search]);

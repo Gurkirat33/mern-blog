@@ -1,3 +1,8 @@
 .Dashboard {
   display: flex;
 }
+@media (max-width: 766px) {
+  .Dashboard {
+    flex-direction: column;
+  }
+}
