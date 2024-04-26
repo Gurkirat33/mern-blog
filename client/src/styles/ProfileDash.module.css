@@ -11,10 +11,10 @@
   font-size: var(--main-heading);
 }
 .img {
+  position: relative;
   width: 7rem;
-  aspect-ratio: 1;
+  height: 7rem;
   border-radius: 50%;
-  border: 8px var(--primary-heading-color) solid;
   cursor: pointer;
 }
 .img img {
@@ -22,6 +22,7 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  border: 8px var(--primary-heading-color) solid;
 }
 .form {
   display: flex;
@@ -68,5 +69,6 @@
   }
   .img {
     width: 5.5rem;
+    height: 5.5rem;
   }
 }

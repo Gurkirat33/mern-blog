@@ -85,7 +85,7 @@ const SignIn = () => {
           </p>
         </form>
         {error && (
-          <p className={styles.error}>
+          <p className="error">
             {<MdError />}
             {error}
           </p>

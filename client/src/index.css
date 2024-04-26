@@ -22,4 +22,12 @@
   color: var(--primary-color) !important;
 }
 
-/* gradient button */
+/* Error message */
+.error {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  background-color: var(--grey-light);
+  padding: 0.3rem;
+  color: red;
+}
