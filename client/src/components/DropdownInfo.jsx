@@ -31,7 +31,9 @@ const DropdownInfo = ({ user }) => {
             <p className={styles.userName}>{user.username}</p>
             <p>{user.email}</p>
           </div>
-          <Link to="/dashboard?tab=profile">Profile</Link>
+          <Link to="/dashboard?tab=profile" onClick={() => setDropdown(false)}>
+            Profile
+          </Link>
           <Link to="/">Sign out</Link>
         </div>
       )}
