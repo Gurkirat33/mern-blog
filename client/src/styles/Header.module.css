@@ -4,7 +4,15 @@
   border-bottom: 2px var(--grey-light) solid;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  z-index: 9999;
+  margin-bottom: 2rem;
 }
+
 .logo {
   padding: 0.5rem;
   background-image: linear-gradient(
@@ -15,7 +23,8 @@
   border-radius: 0.4rem;
   color: white;
 }
-.navLinks ul {
+.navLinks ul,
+.remove {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -44,6 +53,53 @@
   outline: none;
   background-color: rgb(249, 250, 251);
 }
-.hamburgur {
+.hamburgerMenu {
   display: none;
+}
+
+@media (max-width: 766px) {
+  .remove {
+    position: fixed;
+    width: 60%;
+    height: 100%;
+    top: 0;
+    right: -35rem;
+    background-color: #e28fa0;
+    z-index: 999;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .remove li a {
+    color: white;
+  }
+  .active {
+    right: 0;
+  }
+  .btnGradient {
+    display: flex !important;
+  }
+  .hamburgerMenu {
+    display: flex;
+    cursor: pointer;
+    font-size: 1.4rem;
+    z-index: 9999;
+  }
+}
+@media (max-width: 591px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .navbar p:first-child {
+    font-size: 0.8rem;
+  }
+  .input input {
+    display: none;
+  }
+  .input a {
+    color: black;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    align-items: center;
+  }
 }
