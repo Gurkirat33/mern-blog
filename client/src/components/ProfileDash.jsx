@@ -14,6 +14,7 @@ import {
   updateStart,
   updateSuccess,
   updateFailure,
+  signOutSuccess,
 } from "../app/user/UserSlics";
 import { useDispatch } from "react-redux";
 import Modal from "./Modal.jsx";
@@ -113,6 +114,21 @@ const ProfileDash = () => {
       setUpdateUserError(error.message);
     }
   };
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch(`/api/user/signout`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signOutSuccess());
+      }
+    } catch (error) {
+      console.log(data.message);
+    }
+  };
   return (
     <div className={styles.profile}>
       <p className={styles.head}>Profile</p>
@@ -175,7 +191,7 @@ const ProfileDash = () => {
         <button className={styles.updateBtn}>Update</button>
         <div className={styles.btnRow}>
           <p onClick={() => setShowModal(true)}>Delete Account</p>
-          <p>Sign out</p>
+          <p onClick={handleSignOut}>Sign out</p>
         </div>
       </form>
       {updateUserSuccess && <div className="success">{updateUserSuccess}</div>}

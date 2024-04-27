@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/DropdownInfo.module.css";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { signOutSuccess } from "../app/user/UserSlics";
 const DropdownInfo = ({ user }) => {
+  const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -17,6 +19,21 @@ const DropdownInfo = ({ user }) => {
   }, [dropdown]);
   const handleProfileClick = () => {
     setDropdown((s) => !s);
+  };
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch(`/api/user/signout`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signOutSuccess());
+      }
+    } catch (error) {
+      console.log(data.message);
+    }
   };
   return (
     <div className={styles.profilePic}>
@@ -34,7 +51,7 @@ const DropdownInfo = ({ user }) => {
           <Link to="/dashboard?tab=profile" onClick={() => setDropdown(false)}>
             Profile
           </Link>
-          <Link to="/">Sign out</Link>
+          <p onClick={handleSignOut}>Sign out</p>
         </div>
       )}
     </div>
