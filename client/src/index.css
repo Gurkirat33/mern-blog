@@ -15,6 +15,7 @@
   --main-heading: 2.2rem;
   --primary-heading: 1.1rem;
   --p-mobile: 2rem 1rem;
+  --error-color: rgb(250, 81, 81);
 }
 
 /* for Navlink react-router-dom class */

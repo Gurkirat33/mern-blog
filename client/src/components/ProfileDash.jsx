@@ -16,8 +16,9 @@ import {
   updateFailure,
 } from "../app/user/UserSlics";
 import { useDispatch } from "react-redux";
+import Modal from "./Modal.jsx";
 const ProfileDash = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -25,6 +26,7 @@ const ProfileDash = () => {
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(false);
   const [formData, setFormData] = useState({});
+  const [showModal, setShowModal] = useState(false);
   const [updateUserError, setUpdateUserError] = useState(null);
   const dispatch = useDispatch();
 
@@ -172,12 +174,16 @@ const ProfileDash = () => {
         />
         <button className={styles.updateBtn}>Update</button>
         <div className={styles.btnRow}>
-          <p>Delete Account</p>
+          <p onClick={() => setShowModal(true)}>Delete Account</p>
           <p>Sign out</p>
         </div>
       </form>
       {updateUserSuccess && <div className="success">{updateUserSuccess}</div>}
       {updateUserError && <div className="error">{updateUserError}</div>}
+      {error && <div className="error">{error}</div>}
+      {showModal && (
+        <Modal showModal={showModal} handleShowModal={setShowModal} />
+      )}
     </div>
   );
 };
