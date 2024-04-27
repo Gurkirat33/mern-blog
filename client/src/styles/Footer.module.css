@@ -41,7 +41,7 @@ footer > * {
 .linkLogo,
 .linkLogo a {
   color: white;
-  padding: 0.3rem;
+  /* padding: 0.3rem; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,6 +49,18 @@ footer > * {
   width: 2rem;
   aspect-ratio: 1;
   border-radius: 50%;
+}
+.socialMediaLinks .linkLogo:nth-child(1) a {
+  background-color: #3b5998;
+}
+.socialMediaLinks .linkLogo:nth-child(2) a {
+  background-color: #c13584;
+}
+.socialMediaLinks .linkLogo:nth-child(3) a {
+  background-color: #0077b5;
+}
+.socialMediaLinks .linkLogo:nth-child(4) a {
+  background-color: #24292e;
 }
 .linkInfo a:last-child {
   color: var(--secondary-color);

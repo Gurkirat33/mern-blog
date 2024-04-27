@@ -62,7 +62,7 @@ const Footer = () => {
             </a>
           </div>
           <div className={styles.linkLogo}>
-            <a href="">
+            <a href="https://www.instagram.com/_.gurkirat._singh/">
               <FaInstagram />
             </a>
           </div>
@@ -72,7 +72,7 @@ const Footer = () => {
             </a>
           </div>
           <div className={styles.linkLogo}>
-            <a href="">
+            <a href="https://github.com/Gurkirat33/">
               <FaGithub />
             </a>
           </div>
