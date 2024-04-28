@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRouter = require("./routes/user.route");
 const authRouter = require("./routes/auth.route.js");
+const postRouter = require("./routes/post.route.js");
 const cookieParser = require("cookie-parser");
 
 dotenv.config();
@@ -22,9 +23,11 @@ mongoose
 //Middlewares
 app.use(express.json());
 app.use(cookieParser());
+
 // Routes
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/post", postRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port : ${PORT}`);
