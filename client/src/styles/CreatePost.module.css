@@ -49,11 +49,30 @@
   color: white;
   border-radius: 0.3rem;
   cursor: pointer;
-  padding: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  /* font-size: 0.7rem; */
 }
 .quill {
   background-color: white;
   height: 20rem;
   border: none;
   overflow: hidden;
+}
+@media (max-width: 991px) {
+  .container {
+    flex-direction: column;
+  }
+}
+@media (max-width: 591px) {
+  .container {
+    padding: var(--p-mobile);
+  }
+  .fileInput {
+    text-align: center;
+    flex-direction: column;
+  }
+  .head {
+    font-size: var(--heading-m);
+    margin-bottom: 0.8rem;
+  }
 }

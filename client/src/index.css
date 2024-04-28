@@ -16,6 +16,7 @@
   --primary-heading: 1.1rem;
   --p-mobile: 2rem 1rem;
   --error-color: rgb(250, 81, 81);
+  --heading-m: 1.4rem;
 }
 
 /* for Navlink react-router-dom class */
@@ -49,6 +50,11 @@
 
 .ql-editor {
   font-size: 1.08rem;
+}
+@media (max-width: 591px) {
+  .ql-editor {
+    font-size: 0.95rem;
+  }
 }
 .btn {
   border: none;
