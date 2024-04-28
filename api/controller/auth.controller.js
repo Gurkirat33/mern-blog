@@ -39,7 +39,10 @@ const signin = async (req, res, next) => {
     if (!validPass) {
       return next(error(400, "Invalid password!"));
     }
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRETKEY);
+    const token = jwt.sign(
+      { id: validUser._id, isAdmin: validUser.isAdmin },
+      process.env.JWT_SECRETKEY
+    );
     const { password: pass, ...rest } = validUser._doc;
 
     res
@@ -87,7 +90,6 @@ const google = async (req, res, next) => {
         { id: newUser._id, isAdmin: newUser.isAdmin },
         process.env.JWT_SECRETKEY
       );
-      console.log(process.env.JWT_SECRETKEY);
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
