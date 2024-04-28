@@ -22,7 +22,8 @@
   cursor: pointer;
 }
 .active a,
-.active svg {
+.active svg,
+.active p {
   color: white;
 }
 .active {

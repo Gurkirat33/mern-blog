@@ -5,10 +5,12 @@ import { FaUser } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { signOutSuccess } from "../app/user/UserSlics";
-
+import { useSelector } from "react-redux";
+import { HiDocumentText } from "react-icons/hi";
 const SidebarDash = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -34,18 +36,28 @@ const SidebarDash = () => {
   };
   return (
     <div className={styles.sidebar}>
-      <div
+      <Link
+        to={`/dashboard?tab=profile`}
         className={`${styles.profile} ${
           tab === "profile" ? styles.active : ""
         }`}
       >
         <FaUser />
-        <Link to={`/dashboard?tab=profile`}>Profile</Link>
-      </div>
-      <div className={styles.signOut}>
+        <p>Profile</p>
+      </Link>
+      {currentUser.isAdmin && (
+        <Link
+          to={`/dashboard?tab=posts`}
+          className={`${styles.admin} ${tab === "posts" ? styles.active : ""}`}
+        >
+          <HiDocumentText />
+          <p>Posts</p>
+        </Link>
+      )}
+      <Link className={styles.signOut}>
         <FaArrowRight />
         <p onClick={handleSignOut}>Sign Out</p>
-      </div>
+      </Link>
     </div>
   );
 };
