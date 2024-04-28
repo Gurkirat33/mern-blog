@@ -11,11 +11,15 @@ import {
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
+  const [publishError, setPublishError] = useState(null);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  console.log(formData);
   const handleUploadImage = async () => {
     try {
       if (!file) {
@@ -51,59 +55,118 @@ const CreatePost = () => {
       setImageUploadProgress(null);
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      } else {
+        setPublishError(null);
+        navigate(`/post/${data.slug}`);
+      }
+    } catch (error) {
+      setPublishError(error.message);
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.createPostContainer}>
         <p className={styles.head}>Create Post</p>
-        <div className={styles.input}>
-          <input type="text" placeholder="Title" />
-          <select>
-            <option value="noCatagory">Select a catagory</option>
-            <option value="Demo1">Demo1</option>
-            <option value="Demo2">Demo2</option>
-          </select>
-        </div>
-        <div className={styles.fileInput}>
-          <input
-            type="file"
-            accept="img/*"
-            onChange={(e) => setFile(e.target.files[0])}
-            disabled={imageUploadProgress}
+        <form onSubmit={handleSubmit}>
+          <div className={styles.input}>
+            <input
+              type="text"
+              placeholder="Title"
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
+            />
+            <select
+              onChange={(e) =>
+                setFormData({ ...formData, catagory: e.target.value })
+              }
+            >
+              <option value="noCatagory">Select a catagory</option>
+              <option value="Demo1">Demo1</option>
+              <option value="Demo2">Demo2</option>
+            </select>
+          </div>
+          <div className={styles.fileInput}>
+            <input
+              type="file"
+              accept="img/*"
+              onChange={(e) => setFile(e.target.files[0])}
+              disabled={imageUploadProgress}
+            />
+            <button type="button" onClick={handleUploadImage}>
+              {imageUploadProgress ? (
+                <div style={{ width: "3rem", height: "3rem" }}>
+                  <CircularProgressbar
+                    value={imageUploadProgress}
+                    text={`${imageUploadProgress || 0}%`}
+                  />
+                </div>
+              ) : (
+                "Upload Image"
+              )}
+            </button>
+          </div>
+          {imageUploadError && <p className="error">{imageUploadError}</p>}
+          {formData.image && (
+            <img
+              src={formData.image}
+              alt="Uploaded Image"
+              style={{ width: "100%", height: "8rem", objectFit: "contain" }}
+            />
+          )}
+          <ReactQuill
+            theme="snow"
+            className={styles.quill}
+            placeholder="Enter some text"
+            onChange={(value) => {
+              setFormData({ ...formData, content: value });
+            }}
           />
-          <button onClick={handleUploadImage}>
-            {imageUploadProgress ? (
-              <div style={{ width: "3rem", height: "3rem" }}>
-                <CircularProgressbar
-                  value={imageUploadProgress}
-                  text={`${imageUploadProgress || 0}%`}
-                />
-              </div>
-            ) : (
-              "Upload Image"
-            )}
-          </button>
+          <div>
+            <button className="btn" type="submit">
+              Publish
+            </button>
+          </div>
+          {publishError && <p className="error">{publishError}</p>}
+        </form>
+      </div>
+      <div className={styles.previewPostContainer}>
+        <div className={styles.head} style={{ marginBottom: ".8rem" }}>
+          Preview
         </div>
-        {imageUploadError && <p className="error">{imageUploadError}</p>}
+        {Object.keys(formData).length === 0 ? (
+          <p className={styles.title}>This is previw section for your post</p>
+        ) : null}
+        {formData.title && <p className={styles.title}>{formData.title}</p>}
+        {formData.catagory && (
+          <span className={styles.catagory}>
+            Catagory - {formData.catagory}
+          </span>
+        )}
         {formData.image && (
           <img
             src={formData.image}
             alt="Uploaded Image"
-            style={{ width: "100%", height: "8rem", objectFit: "contain" }}
+            style={{ height: "10rem", objectFit: "contain" }}
           />
         )}
-        <ReactQuill
-          theme="snow"
-          className={styles.quill}
-          placeholder="Enter some text"
-        />
-        <div>
-          <button className="btn" type="submit">
-            Publish
-          </button>
-        </div>
-      </div>
-      <div className={styles.previewPostContainer}>
-        <div className={styles.head}>Preview</div>
+        {formData.content && (
+          <div dangerouslySetInnerHTML={{ __html: formData.content }} />
+        )}
       </div>
     </div>
   );

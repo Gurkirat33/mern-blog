@@ -14,6 +14,11 @@
   flex-direction: column;
   gap: 0.6rem;
 }
+.createPostContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
 .head {
   font-size: var(--main-heading);
   color: var(--primary-color);
@@ -57,6 +62,20 @@
   height: 20rem;
   border: none;
   overflow: hidden;
+}
+.title {
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--secondary-color);
+  text-transform: capitalize;
+}
+.catagory {
+  font-size: 0.9rem;
+  color: var(--primary-heading-color);
+}
+.previewPostContainer {
+  overflow: scroll;
+  gap: 0.2rem;
 }
 @media (max-width: 991px) {
   .container {

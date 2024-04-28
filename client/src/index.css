@@ -55,7 +55,12 @@
   .ql-editor {
     font-size: 0.95rem;
   }
+  .success,
+  .error {
+    font-size: 0.8rem;
+  }
 }
+
 .btn {
   border: none;
   padding: 0.5rem;
