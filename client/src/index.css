@@ -46,3 +46,31 @@
   display: flex;
   justify-content: center;
 }
+
+.ql-editor {
+  font-size: 1.08rem;
+}
+.btn {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  color: white;
+  background-image: linear-gradient(
+    to left,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+  cursor: pointer;
+  width: 100%;
+}
+.btn:hover {
+  background-image: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+.btn-link {
+  text-decoration: none;
+  text-align: center;
+}

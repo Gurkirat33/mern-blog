@@ -38,18 +38,7 @@
   border: none;
   outline: none;
 }
-.updateBtn {
-  padding: 0.8rem;
-  border: none;
-  cursor: pointer;
-  color: white;
-  background-image: linear-gradient(
-    to left,
-    var(--secondary-color),
-    var(--primary-color)
-  );
-  outline: none;
-}
+
 .btnRow {
   display: flex;
   justify-content: space-between;

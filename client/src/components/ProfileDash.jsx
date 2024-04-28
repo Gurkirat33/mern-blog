@@ -10,6 +10,7 @@ import {
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { Link } from "react-router-dom";
 import {
   updateStart,
   updateSuccess,
@@ -19,7 +20,7 @@ import {
 import { useDispatch } from "react-redux";
 import Modal from "./Modal.jsx";
 const ProfileDash = () => {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -188,7 +189,14 @@ const ProfileDash = () => {
           onChange={handleFormChange}
           id="password"
         />
-        <button className={styles.updateBtn}>Update</button>
+        <button className="btn" disabled={loading || imageFileUploading}>
+          {loading || imageFileUploading ? "Loading..." : "Update"}
+        </button>
+        {currentUser.isAdmin && (
+          <Link to="/create-post" className="btn btn-link">
+            Create a post
+          </Link>
+        )}
         <div className={styles.btnRow}>
           <p onClick={() => setShowModal(true)}>Delete Account</p>
           <p onClick={handleSignOut}>Sign out</p>

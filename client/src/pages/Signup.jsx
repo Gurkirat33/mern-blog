@@ -1,6 +1,6 @@
 import styles from "../styles/signup.module.css";
 import SignUpImg from "../assets/images/signup.png";
-import ButtonInvert from "../components/ButtonInvert";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -78,7 +78,9 @@ const Signup = () => {
             />
           </div>
           <div className={styles.button}>
-            <ButtonInvert>{loading ? "Loading..." : "Sign In"}</ButtonInvert>
+            <button className="btn">
+              {loading ? "Loading..." : "Sign In"}
+            </button>
             <GoogleBtn />
           </div>
           <p className={styles.signin}>

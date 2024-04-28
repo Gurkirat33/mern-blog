@@ -8,6 +8,8 @@ import Projects from "./pages/Projects.jsx";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import AdminOnlyRoute from "./components/AdminOnlyRoute.jsx";
+import CreatePost from "./pages/CreatePost.jsx";
 const App = () => {
   return (
     <BrowserRouter>
@@ -19,6 +21,9 @@ const App = () => {
         <Route path="/sign-up" element={<Signup />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<AdminOnlyRoute />}>
+          <Route path="/create-post" element={<CreatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
       </Routes>
