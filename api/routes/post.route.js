@@ -1,8 +1,8 @@
 const express = require("express");
 const { verifyToken } = require("../utils/verifyUser.js");
-const { create } = require("../controller/post.controller.js");
+const { create, getposts } = require("../controller/post.controller.js");
 const router = express.Router();
 
 router.post("/create", verifyToken, create);
-
+router.get("/getposts", getposts);
 module.exports = router;
