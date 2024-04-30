@@ -5,6 +5,7 @@
   margin-top: 0.4rem;
   display: flex;
   /* align-items: center; */
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -22,7 +23,8 @@
 
 .table {
   border-collapse: collapse;
-  width: 85%;
+  width: 90%;
+  margin: 0 auto;
 }
 .table th,
 .table td {
