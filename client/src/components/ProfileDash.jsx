@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/ProfileDash.module.css";
-import { useSelector } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
@@ -16,8 +15,11 @@ import {
   updateSuccess,
   updateFailure,
   signOutSuccess,
+  deleteUserStart,
+  deleteUserFailure,
+  deleteUserSuccess,
 } from "../app/user/UserSlics";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal.jsx";
 const ProfileDash = () => {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -130,6 +132,23 @@ const ProfileDash = () => {
       console.log(data.message);
     }
   };
+  const handleDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
   return (
     <div className={styles.profile}>
       <p className={styles.head}>Profile</p>
@@ -189,7 +208,11 @@ const ProfileDash = () => {
           onChange={handleFormChange}
           id="password"
         />
-        <button className="btn" disabled={loading || imageFileUploading}>
+        <button
+          className="btn"
+          style={{ fontSize: "1rem" }}
+          disabled={loading || imageFileUploading}
+        >
           {loading || imageFileUploading ? "Loading..." : "Update"}
         </button>
         {currentUser.isAdmin && (
@@ -206,7 +229,9 @@ const ProfileDash = () => {
       {updateUserError && <div className="error">{updateUserError}</div>}
       {error && <div className="error">{error}</div>}
       {showModal && (
-        <Modal showModal={showModal} handleShowModal={setShowModal} />
+        <Modal handleShowModal={setShowModal} handleClick={handleDeleteUser}>
+          Are you sure you want to delete your account?
+        </Modal>
       )}
     </div>
   );

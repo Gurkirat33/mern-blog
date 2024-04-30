@@ -2,11 +2,13 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/PostDash.module.css";
+import Modal from "./Modal";
 const PostsDash = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  console.log(userPosts);
+  const [showModal, setShowModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState(null);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -38,6 +40,27 @@ const PostsDash = () => {
         if (data.posts.length < 9) {
           setShowMore(false);
         }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handlePostDelete = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
       }
     } catch (error) {
       console.log(error);
@@ -75,7 +98,15 @@ const PostsDash = () => {
                   <td>{post.title}</td>
                   <td>{post.catagory}</td>
                   <td style={{ color: "var(--error-color)" }}>
-                    <p style={{ cursor: "pointer" }}>Delete</p>
+                    <p
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setShowModal(true);
+                        setPostIdToDelete(post._id);
+                      }}
+                    >
+                      Delete
+                    </p>
                   </td>
                   <td style={{ color: "green" }}>
                     <p style={{ cursor: "pointer" }}>Edit</p>
@@ -103,6 +134,11 @@ const PostsDash = () => {
             Create post
           </Link>
         </div>
+      )}
+      {showModal && (
+        <Modal handleShowModal={setShowModal} handleClick={handlePostDelete}>
+          Are you sure you want to delete this post?
+        </Modal>
       )}
     </div>
   );

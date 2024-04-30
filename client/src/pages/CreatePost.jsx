@@ -19,7 +19,6 @@ const CreatePost = () => {
   const [publishError, setPublishError] = useState(null);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-  console.log(formData);
   const handleUploadImage = async () => {
     try {
       if (!file) {
