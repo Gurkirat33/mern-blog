@@ -109,7 +109,9 @@ const PostsDash = () => {
                     </p>
                   </td>
                   <td style={{ color: "green" }}>
-                    <p style={{ cursor: "pointer" }}>Edit</p>
+                    <Link to={`/update-post/${post._id}`} className="btn-link">
+                      Edit
+                    </Link>
                   </td>
                 </tr>
               ))}
