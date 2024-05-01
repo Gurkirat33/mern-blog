@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { signOutSuccess } from "../app/user/UserSlics";
 import { useSelector } from "react-redux";
 import { HiDocumentText } from "react-icons/hi";
+import { HiOutlineUserGroup } from "react-icons/hi2";
 const SidebarDash = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
@@ -46,13 +47,26 @@ const SidebarDash = () => {
         <p>Profile</p>
       </Link>
       {currentUser.isAdmin && (
-        <Link
-          to={`/dashboard?tab=posts`}
-          className={`${styles.admin} ${tab === "posts" ? styles.active : ""}`}
-        >
-          <HiDocumentText />
-          <p>Posts</p>
-        </Link>
+        <>
+          <Link
+            to={`/dashboard?tab=posts`}
+            className={`${styles.admin} ${
+              tab === "posts" ? styles.active : ""
+            }`}
+          >
+            <HiDocumentText />
+            <p>Posts</p>
+          </Link>
+          <Link
+            to={`/dashboard?tab=users`}
+            className={`${styles.admin} ${
+              tab === "users" ? styles.active : ""
+            }`}
+          >
+            <HiOutlineUserGroup />
+            <p>Users</p>
+          </Link>
+        </>
       )}
       <Link className={styles.signOut}>
         <FaArrowRight />

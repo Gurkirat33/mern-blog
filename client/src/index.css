@@ -85,3 +85,15 @@
   text-decoration: none;
   text-align: center;
 }
+
+/* table styling */
+@media (min-width: 820px) and (max-width: 1060px) {
+  .table-container table {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 820px) and(min-width: 766px) {
+  .table-container table img {
+    width: 1.4rem !important;
+  }
+}

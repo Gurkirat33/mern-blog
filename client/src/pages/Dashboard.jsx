@@ -4,6 +4,7 @@ import SidebarDash from "../components/SidebarDash";
 import ProfileDash from "../components/ProfileDash";
 import styles from "../styles/Dashboard.module.css";
 import PostsDash from "../components/PostsDash";
+import UserDash from "../components/UserDash";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -17,11 +18,15 @@ const Dashboard = () => {
   }, [location.search]);
   return (
     <div className={styles.Dashboard}>
-      <div className="sidebar">
+      <div
+        className="sidebar"
+        style={{ borderRight: "   3px var(--grey-light) solid" }}
+      >
         <SidebarDash />
       </div>
       {tab === "profile" && <ProfileDash />}
       {tab === "posts" && <PostsDash />}
+      {tab === "users" && <UserDash />}
     </div>
   );
 };

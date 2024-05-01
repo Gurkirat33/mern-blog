@@ -101,7 +101,6 @@ const getUsers = async (req, res, next) => {
     const lastMonthUsers = await User.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
-    console.log("running?");
     res.status(200).json({
       users: userWithoutPassword,
       totalUsers,

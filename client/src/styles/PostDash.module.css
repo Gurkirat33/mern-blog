@@ -1,7 +1,6 @@
 .container {
   width: 100%;
   padding: 1rem 3rem;
-  border-left: 3px var(--grey-light) solid;
   margin-top: 0.4rem;
   display: flex;
   /* align-items: center; */
