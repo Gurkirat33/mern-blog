@@ -44,6 +44,22 @@ const UserDash = () => {
       console.log(error);
     }
   };
+  const handleDeleteUser = async () => {
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={`${styles.container} table-container`}>
       {currentUser.isAdmin && users.length > 0 ? (
@@ -117,7 +133,7 @@ const UserDash = () => {
         </div>
       )}
       {showModal && (
-        <Modal handleShowModal={setShowModal}>
+        <Modal handleShowModal={setShowModal} handleClick={handleDeleteUser}>
           Are you sure you want to delete this user?
         </Modal>
       )}
