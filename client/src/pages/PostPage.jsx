@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import styles from "../styles/PostPage.module.css";
 import CallToAction from "../components/CallToAction";
+import CommentSection from "../components/CommentSection";
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
@@ -54,6 +55,7 @@ const PostPage = () => {
         ></p>
       </div>
       <CallToAction />
+      <CommentSection postId={post && post._id} />
     </>
   );
 };
