@@ -2,7 +2,6 @@
   width: 85%;
   margin: 0 auto;
   padding: var(--p-full);
-  border: 1px red solid;
 }
 .userInfo {
   display: flex;
@@ -11,7 +10,9 @@
   gap: 0.3rem;
 }
 .userInfo,
-.form {
+.form,
+.comments,
+.commentCount {
   width: 80%;
   margin: 0 auto;
   padding: 0.3rem;
@@ -56,4 +57,30 @@
   padding: 0.5rem;
   border: none;
   width: fit-content;
+}
+
+@media (max-width: 991px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 766px) {
+  .userInfo,
+  .form,
+  .comments,
+  .commentCount {
+    width: 95%;
+  }
+}
+@media (max-width: 591px) {
+  .container {
+    padding: var(--p-mobile);
+  }
+  .userInfo {
+    font-size: 0.8rem;
+  }
+  .userInfo img {
+    width: 2rem;
+  }
 }

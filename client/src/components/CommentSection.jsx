@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../styles/CommentSection.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Comment from "./Comment";
 
 const CommentSection = ({ postId }) => {
   const [comment, setComment] = useState("");
   const { currentUser } = useSelector((state) => state.user);
+  const [comments, setComments] = useState([]);
   const [commentError, setCommentError] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,18 +28,33 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setComment("");
         setCommentError(null);
+        setComments([data, ...comments]);
       }
     } catch (error) {
       setCommentError(error.message);
     }
   };
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`/api/comment/getcomments/${postId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setComments(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchComments();
+  }, [postId]);
   return (
     <div className={styles.container}>
       {currentUser ? (
         <div>
           <div className={styles.userInfo}>
             <p>Signed in as:</p>
-            <img src={currentUser.profilePicture} alt="am ia here" />
+            <img src={currentUser.profilePicture} alt="" />
             <Link to={"/dashboard?tab=profile"}>{currentUser.username}</Link>
           </div>
         </div>
@@ -66,8 +83,26 @@ const CommentSection = ({ postId }) => {
             </div>
           </form>
           {commentError && <div className="error">{commentError}</div>}
+          <div className={styles.commentCount}>
+            {comments.length === 0 ? (
+              <p>No comments yet</p>
+            ) : (
+              <div>
+                <p>
+                  {comments.length === "1" ? "Comment " : "Comments "}
+                  {comments.length}
+                </p>
+              </div>
+            )}
+          </div>
         </>
       )}
+      <div className={styles.comments}>
+        {comments &&
+          comments.map((comment) => (
+            <Comment comment={comment} key={comment._id} />
+          ))}
+      </div>
     </div>
   );
 };
