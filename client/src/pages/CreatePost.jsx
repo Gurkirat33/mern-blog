@@ -148,7 +148,7 @@ const CreatePost = () => {
           Preview
         </div>
         {Object.keys(formData).length === 0 ? (
-          <p className={styles.title}>This is previw section for your post</p>
+          <p className={styles.title}>This is preview section for your post</p>
         ) : null}
         {formData.title && <p className={styles.title}>{formData.title}</p>}
         {formData.catagory && (

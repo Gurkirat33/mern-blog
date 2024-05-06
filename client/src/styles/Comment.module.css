@@ -34,6 +34,12 @@
 .username {
   color: black;
 }
+.like {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--primary-heading-color);
+}
 @media (max-width: 591px) {
   .img img {
     width: 2rem;
@@ -51,7 +57,7 @@
     padding: 0rem;
     margin: 1rem 0;
   }
-  .content {
+  .like {
     margin-bottom: 0.4rem;
     font-size: 0.85rem;
   }
