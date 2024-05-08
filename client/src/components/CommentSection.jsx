@@ -80,7 +80,30 @@ const CommentSection = ({ postId }) => {
       console.log(error.message);
     }
   };
+  const handleEdit = async (comment, editedContent) => {
+    setComments(
+      comments.map((c) =>
+        c._id === comment._id ? { ...c, content: editedContent } : c
+      )
+    );
+  };
 
+  const handleDelete = async (commentId) => {
+    try {
+      if (!currentUser) {
+        navigate("/sign-in");
+        return;
+      }
+      const res = await fetch(`/api/comment/deleteComment/${commentId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setComments(comments.filter((c) => c._id !== commentId));
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className={styles.container}>
       {currentUser ? (
@@ -133,7 +156,13 @@ const CommentSection = ({ postId }) => {
       <div className={styles.comments}>
         {comments &&
           comments.map((comment) => (
-            <Comment comment={comment} key={comment._id} onLike={handleLike} />
+            <Comment
+              comment={comment}
+              key={comment._id}
+              onLike={handleLike}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           ))}
       </div>
     </div>
