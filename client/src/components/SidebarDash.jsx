@@ -8,6 +8,8 @@ import { signOutSuccess } from "../app/user/UserSlics";
 import { useSelector } from "react-redux";
 import { HiDocumentText } from "react-icons/hi";
 import { HiOutlineUserGroup } from "react-icons/hi2";
+import { FaRegComment } from "react-icons/fa";
+
 const SidebarDash = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
@@ -65,6 +67,15 @@ const SidebarDash = () => {
           >
             <HiOutlineUserGroup />
             <p>Users</p>
+          </Link>
+          <Link
+            to={`/dashboard?tab=comments`}
+            className={`${styles.admin} ${
+              tab === "comments" ? styles.active : ""
+            }`}
+          >
+            <FaRegComment />
+            <p>Comments</p>
           </Link>
         </>
       )}

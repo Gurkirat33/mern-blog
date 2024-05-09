@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/PostDash.module.css";
 import Modal from "./Modal";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import Spinner from "./Spinner";
 
 const UserDash = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -10,13 +11,17 @@ const UserDash = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     const fetchUsers = async () => {
       try {
         const res = await fetch("/api/user/getusers");
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
+          setLoading(false);
           if (data.users.length < 9) {
             setShowMore(false);
           }
@@ -60,6 +65,7 @@ const UserDash = () => {
       console.log(error);
     }
   };
+  if (loading) return <Spinner />;
   return (
     <div className={`${styles.container} table-container`}>
       {currentUser.isAdmin && users.length > 0 ? (
