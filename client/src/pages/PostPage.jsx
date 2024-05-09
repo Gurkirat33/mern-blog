@@ -4,11 +4,13 @@ import Spinner from "../components/Spinner";
 import styles from "../styles/PostPage.module.css";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
+import PostCard from "../components/PostCard";
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState(null);
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -32,6 +34,21 @@ const PostPage = () => {
     };
     fetchPost();
   }, [postSlug]);
+  useEffect(() => {
+    try {
+      const fetchPosts = async () => {
+        const res = await fetch("/api/post/getposts?limit=3");
+        const data = await res.json();
+        if (res.ok) {
+          setRecentPosts(data.posts);
+          setError(false);
+        }
+      };
+      fetchPosts();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
   if (loading) return <Spinner />;
   return (
     <>
@@ -56,6 +73,14 @@ const PostPage = () => {
       </div>
       <CallToAction />
       <CommentSection postId={post && post._id} />
+      <div className={styles.recent}>
+        <p className={styles.commentHead}>Recent articles</p>
+        <div className={styles.recentPosts}>
+          {console.log(recentPosts)}
+          {recentPosts &&
+            recentPosts.map((post) => <PostCard post={post} key={post._id} />)}
+        </div>
+      </div>
     </>
   );
 };

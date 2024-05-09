@@ -17,7 +17,8 @@
   font-size: 0.9rem;
   color: var(--primary-heading-color);
 }
-.head {
+.head,
+.commentHead {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
   font-size: var(--main-heading);
@@ -37,7 +38,8 @@
 }
 .head,
 .postInfo,
-.postContent {
+.postContent,
+.recent {
   width: 80%;
   padding: 0.3rem;
 }
@@ -47,6 +49,17 @@
   object-fit: cover;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
+}
+.recent {
+  margin: 0 auto;
+  text-align: center;
+}
+.recentPosts {
+  display: flex;
+  gap: 1rem;
+}
+.recentPosts > * {
+  flex: 1;
 }
 @media (max-width: 991px) {
   .container {
@@ -59,18 +72,29 @@
 }
 
 @media (max-width: 766px) {
-  .head {
+  .head,
+  .commentHead {
     font-size: 1.5rem;
   }
   .head,
   .postInfo,
-  .postContent {
+  .postContent,
+  .recent {
     width: 95%;
+  }
+  .recentPosts {
+    flex-direction: column;
+  }
+  .recent {
+    width: 80%;
   }
 }
 @media (max-width: 591px) {
   .container {
     padding: var(--p-mobile);
+  }
+  .recent {
+    width: 95%;
   }
   .head {
     width: 100%;
