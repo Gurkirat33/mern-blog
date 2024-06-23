@@ -1,0 +1,88 @@
+.Container {
+  padding-top: 1.5rem;
+  padding-top: 3rem;
+}
+
+.Heading {
+  max-width: 42rem;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  margin: 0 auto;
+}
+
+.Description {
+  max-width: 38rem;
+  padding: 2rem;
+  color: #4b5563;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.ButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+.ButtonContainer button {
+  width: fit-content;
+}
+.commentHead {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+.RecentPostsHeading {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.PostTitle {
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+.PostDescription {
+  color: #4b5563;
+}
+
+.recent {
+  width: 80%;
+  padding: 0.3rem;
+}
+
+.recent {
+  margin: 0 auto;
+  text-align: center;
+}
+.recentPosts {
+  display: flex;
+  gap: 1rem;
+}
+.recentPosts > * {
+  flex: 1;
+}
+@media (max-width: 991px) {
+  .Heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 766px) {
+  .Heading {
+    font-size: 2rem;
+  }
+  .recentPosts {
+    flex-direction: column;
+  }
+  .recent {
+    width: 80%;
+  }
+}
+@media (max-width: 591px) {
+  .container {
+    padding: var(--p-mobile);
+  }
+  .recent {
+    width: 95%;
+  }
+}

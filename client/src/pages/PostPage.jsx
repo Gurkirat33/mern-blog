@@ -76,7 +76,6 @@ const PostPage = () => {
       <div className={styles.recent}>
         <p className={styles.commentHead}>Recent articles</p>
         <div className={styles.recentPosts}>
-          {console.log(recentPosts)}
           {recentPosts &&
             recentPosts.map((post) => <PostCard post={post} key={post._id} />)}
         </div>
